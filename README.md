@@ -12,7 +12,7 @@
     * Minimize the number of operations required to change one word to another
 
 5. <a href="https://cses.fi/problemset/task/1744">Rectangle Cutting</a>
-    * Minimize the number of operations performed with the goal of cutting a rectangle s.t. its sides remain integers
+    * Minimize the number of operations performed with the goal of cutting a rectangle into squares s.t. its sides remain integers
 
 6. <a href="https://cses.fi/problemset/task/1097">Removal Game</a>
     * Maximize both players' scores given a list of numbers where either player can choose the first or last value of the list to add to their score and delete from the list.
