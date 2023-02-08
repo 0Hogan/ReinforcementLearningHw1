@@ -57,8 +57,12 @@ def EditDist(a, b):
 
     if str[a-1] == target[b-1]:
       return EditDist(a-1, b-1)
-    
-    return 1 + min(EditDist(a, b-1), EditDist(a-1, b), EditDist(a-1, b-1))
+
+    add = EditDist(a, b-1)
+    remove = EditDist(a-1, b)
+    replace = EditDist(a-1, b-1)
+
+    return 1 + min(add, remove, replace)
 
 
 print('Top down solution: ', EditDist(len(str),len(target)))
@@ -78,7 +82,10 @@ def EditDistDP():
                 dp[i][j] = dp[i-1][j-1]
             
             else:
-                dp[i][j] =  1 + min(dp[i][j-1], dp[i-1][j], dp[i-1][j-1])
+                add = dp[i][j-1]
+                remove = dp[i-1][j]
+                replace = dp[i-1][j-1]
+                dp[i][j] =  1 + min(add, remove, replace)
 
     return dp[len(str)][len(target)]
 
