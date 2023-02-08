@@ -69,8 +69,10 @@ def BookShopDP():
         for j in range(0, max_cap+1):
             if i == 0 or j == 0:
                 dp[i][j] = 0
+
             elif j >= price[i-1]:
                 dp[i][j] = max (dp[i-1][j],dp[i-1][j-price[i-1]] + page[i-1])
+
             else:
                 dp[i][j] = dp[i-1][j]
     return dp[len(page)][max_cap]
