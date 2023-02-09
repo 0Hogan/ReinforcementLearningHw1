@@ -46,9 +46,13 @@ Recurrence and Memoization:
 import numpy as np
 str = "LOVE"
 target = "MOVIE"
+memo = [[-1 for x in range(1000)] for x in range(1000)]
 
 def EditDist(a, b):
     #Top down/recursive approach
+    if memo[a][b] != -1:
+      return memo[a][b]
+
     if a == 0:
       return b
 
@@ -62,7 +66,10 @@ def EditDist(a, b):
     remove = EditDist(a-1, b)
     replace = EditDist(a-1, b-1)
 
-    return 1 + min(add, remove, replace)
+    value = 1 + min(add, remove, replace)
+    memo[a][b] = value
+
+    return value
 
 
 print('Top down solution: ', EditDist(len(str),len(target)))
