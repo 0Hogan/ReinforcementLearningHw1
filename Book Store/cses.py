@@ -43,9 +43,13 @@ import numpy as np
 page = [5, 12, 8, 1]   
 price = [4, 8, 5, 3]
 max_cap = 10
+memo = [[-1 for x in range(1000)] for x in range(1000)]
 
 def BookShop(id, current_pr):
     #Top down/recursive approach
+    if memo[id][current_pr] != -1:
+      return memo[id][current_pr]
+
     if id == 4:
       return 0
     
@@ -57,6 +61,8 @@ def BookShop(id, current_pr):
     value_for_not_pick = BookShop(id+1, current_pr = current_pr)
     
     value = max(value_for_pick, value_for_not_pick)
+
+    memo[id][current_pr] = value
 
     return value
 
