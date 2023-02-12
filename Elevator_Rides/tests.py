@@ -1,10 +1,11 @@
 import unittest
-from Elevator_Rides.cses import minimum_elevator_rides as SIT
+from Elevator_Rides.bottom_up import minimum_elevator_rides as SIT
+from Elevator_Rides.recursive import minimum_elevator_rides as RECURSIVE_SIT
 
 
 class TestMinElevatorRides(unittest.TestCase):
     """
-    TDD unittest file for Elevator_Rides/cses.py
+    TDD unittest file for CSES Elevator Rides
 
     Command line:
 
@@ -21,6 +22,13 @@ class TestMinElevatorRides(unittest.TestCase):
                 num_people, max_weight,
                 person_weights
             ),
+            2
+        )
+
+    def test_recursive_cses_example(self):
+
+        self.assertEqual(
+            RECURSIVE_SIT(4),
             2
         )
 
@@ -87,6 +95,19 @@ class TestMinElevatorRides(unittest.TestCase):
                 person_weights
             ),
             4
+        )
+
+    def test_another_sequence(self):
+        num_people = 3
+        max_weight = 10
+        person_weights = [9, 2, 1]
+
+        self.assertEqual(
+            SIT(
+                num_people, max_weight,
+                person_weights
+            ),
+            2
         )
 
 

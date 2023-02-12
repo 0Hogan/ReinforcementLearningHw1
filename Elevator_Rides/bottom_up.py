@@ -99,6 +99,10 @@ Time Complexity:
         time complexity is O(2^n * n).
 """
 import sys
+from copy import deepcopy
+
+MAX_WEIGHT = 10
+PERSON_WEIGHTS = [4, 8, 6, 1]
 
 
 def minimum_elevator_rides(num_people, max_weight, person_wts):
@@ -126,18 +130,22 @@ def minimum_elevator_rides(num_people, max_weight, person_wts):
     # dp is an array used to store the minimum
     # number of rides for each subset
     dp = [{}] * num_subsets
+    table = []
 
     # base case = empty elevator ride
     dp[0] = {
         "num_rides": 1,
-        "ride_wt": 0
+        "last_ride_wt": 0
     }
 
     # calculate bottom-up solution
-    for current_mask in range(1, num_subsets):
+    for subset_bit_mask in range(1, num_subsets):
         best_result = {
             "num_rides": sys.maxsize,
-            "ride_wt": sys.maxsize
+            "last_ride_wt": sys.maxsize,
+            "persons": [],
+            "mask": 0,
+            "binary": ""
         }
 
         for person in range(num_people):
@@ -145,38 +153,44 @@ def minimum_elevator_rides(num_people, max_weight, person_wts):
             person_bit_mask = 1 << person
 
             # if the person matches the current bit-mask
-            if bool(person_bit_mask & current_mask):
+            if bool(person_bit_mask & subset_bit_mask):
 
                 subset = dp[
                     # ^ is Binary XOR which sets each position to 1 if
                     # only one of the bits is 1, but will be 0 if both
                     # are 0 or both are 1
-                    person_bit_mask ^ current_mask
+                    person_bit_mask ^ subset_bit_mask
                 ]
 
                 # if the person's weight is less than
                 # the available weight capacity for
                 # the given subset of people in the
                 # elevator
-                if subset['ride_wt'] + person_wts[person] <= max_weight:
+                if subset['last_ride_wt'] + person_wts[person] <= max_weight:
                     # let the person in the elevator with the other people
-                    subset['ride_wt'] += person_wts[person]
+                    subset['last_ride_wt'] += person_wts[person]
                 else:
                     # let the person enter the next elevator
                     subset['num_rides'] += 1
-                    subset['ride_wt'] = person_wts[person]
+                    subset['last_ride_wt'] = person_wts[person]
 
                 best_result['num_rides'] = min(
                     best_result['num_rides'],
                     subset['num_rides']
                 )
 
-                best_result['ride_wt'] = min(
-                    best_result['ride_wt'],
-                    subset['ride_wt']
+                best_result['last_ride_wt'] = min(
+                    best_result['last_ride_wt'],
+                    subset['last_ride_wt']
                 )
 
-        dp[current_mask] = best_result
+                best_result['persons'].append(person)
+                best_result['mask'] = subset_bit_mask
+                best_result['binary'] = bin(subset_bit_mask)
+
+                table.append(deepcopy(best_result))
+
+        dp[subset_bit_mask] = best_result
 
     # bottom-up solution returns the value
     # of the last subset in the dp array
@@ -186,8 +200,8 @@ def minimum_elevator_rides(num_people, max_weight, person_wts):
 if __name__ == "__main__":
     print(
         minimum_elevator_rides(
-            4,            # num_people,
+            3,            # num_people,
             10,           # max_weight
-            [4, 8, 6, 1]  # person_wts
+            [9, 2, 1]  # person_wts
         )
     )
