@@ -16,7 +16,7 @@ Markov Decision Process (MDP):
         of people needing an elevator ride, the current cost representing the
         number of elevator rides taken, and the current elevator weight.
 
-      	Action Space:
+        Action Space:
         The action space of the MDP in this problem would be the choice of
         picking or not picking a person who is waiting for an elevator ride.
         If there are three people for example, the starting action could be to
@@ -37,7 +37,7 @@ Markov Decision Process (MDP):
             MAX_WEIGHT as the maximum elevator weight capacity
             PEOPLE WEIGHTS as the weight for each person
         Recursive Signature:
-	        min_elevator_rides(num_people, current_elevator_weight, cost)
+            min_elevator_rides(num_people, current_elevator_weight, cost)
 
 Reward Space:
         The reward space for this problem would be the cost for the number of
@@ -45,7 +45,7 @@ Reward Space:
         at 0, if adding a person is within the current available elevator capacity
         the cost would stay the same. However, if adding a person would fill or
         exceed the remaining capacity, the cost would increment by 1 to account
-        for the use of an elevator ride. 
+        for the use of an elevator ride.
 
         When there are no more actions to take, as in the case after each person
         has been picked or not picked, each leaf node in the graph would contain
@@ -128,7 +128,6 @@ Time Complexity:
         but this only reduces the constant factor and does not affect the
         overall time complexity.
 """
-from pprint import pprint
 
 HISTORY = []
 MEMO = {}
@@ -189,5 +188,5 @@ def minimum_elevator_rides(n, current_weight=0, cost=0):
 
 
 # print(minimum_elevator_rides(N))
-# pprint(HISTORY)
-# pprint(MEMO)
+# print(HISTORY)
+# print(MEMO)
