@@ -1,5 +1,6 @@
 import unittest
-from Projects.cses import weighted_interval_scheduling as SIT
+from Projects.bottom_up import weighted_interval_scheduling as SIT
+from Projects.recursive import weighted_interval_scheduling as RECURSIVE_SIT
 
 
 class TestWeightedIntervalScheduling(unittest.TestCase):
@@ -19,6 +20,17 @@ class TestWeightedIntervalScheduling(unittest.TestCase):
 
         self.assertEqual(
             SIT(len(projects), projects),
+            7
+        )
+
+    def test_cses_example_recursive(self):
+        projects = [
+            (2, 4, 4), (3, 6, 6),
+            (6, 8, 2), (5, 7, 3)
+        ]
+
+        self.assertEqual(
+            RECURSIVE_SIT(projects),
             7
         )
 

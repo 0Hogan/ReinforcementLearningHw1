@@ -88,6 +88,7 @@ Time Complexity:
         all the projects. In the worst case scenario, this will result in
         n * (n-1) / 2 comparisons, leading to a time complexity of O(n^2).
 """
+from copy import deepcopy
 
 
 def weighted_interval_scheduling(num_projects, projects):
@@ -110,10 +111,11 @@ def weighted_interval_scheduling(num_projects, projects):
     projects.sort(key=lambda x: x[1])
 
     dp = [0] * num_projects
-
+    table = []
     # initialize the first interval's reward
     dp[0] = projects[0][2]
 
+    iteration = 0
     for i in range(1, num_projects):
 
         # initialize with the reward of the current interval
@@ -127,16 +129,13 @@ def weighted_interval_scheduling(num_projects, projects):
             if projects[j][1] < projects[i][0]:
                 dp[i] = max(dp[i], dp[j] + projects[i][2])
 
+                iteration += 1
+                item = {
+                    "iteration": iteration,
+                    "i": i,
+                    "j": j,
+                    f'dp[{i}]': dp[i]
+                }
+                table.append(deepcopy(item))
+
     return max(dp)
-
-
-if __name__ == "__main__":
-    print(
-        weighted_interval_scheduling(
-            4,
-            [
-                (2, 4, 4), (3, 6, 6),
-                (6, 8, 2), (5, 7, 3)
-            ]
-        )
-    )
