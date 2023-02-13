@@ -103,20 +103,6 @@ Context:
         of rides required to transport all the people from one floor
         to another.
 
-Pseudocode:
-        1) The maximum number of subsets is 2^n for a set of size n.
-        2) Use a dp array to store the minimum number of rides for each subset.
-        2) Start with a base case that is an empty elevator ride.
-        2) Iterate through each subset of people and update the dp array.
-        3) For each person, do the following:
-           a. If the current elevator weight plus the weight of the person
-              does not exceed the maximum weight, add the person's weight.
-           b. If the current elevator weight plus the weight of the person
-              exceeds the maximum weight the the person catches the next ride
-              increment number of elevator rides and set the weight of the
-              next elevator to the weight of the new person.
-        5) As a bottom-up solution return the last value of the dp array.
-
 Time Complexity:
         The recursive implementation is dependent on the size of the input
         array WEIGHTS. Specifically, the time complexity of the code is
@@ -128,6 +114,7 @@ Time Complexity:
         but this only reduces the constant factor and does not affect the
         overall time complexity.
 """
+from pprint import pprint
 
 HISTORY = []
 MEMO = {}
@@ -187,6 +174,7 @@ def minimum_elevator_rides(n, current_weight=0, cost=0):
     return max(pick, not_pick)
 
 
-# print(minimum_elevator_rides(N))
-# print(HISTORY)
-# print(MEMO)
+value = minimum_elevator_rides(N)
+pprint(HISTORY)
+print(value)
+pprint(MEMO)

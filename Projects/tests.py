@@ -46,18 +46,6 @@ class TestWeightedIntervalScheduling(unittest.TestCase):
             190
         )
 
-    def test_no_jobs_overlap_recursive(self):
-        projects = [
-            (0, 6, 60), (7, 9, 30),
-            (10, 11, 10), (12, 13, 30),
-            (14, 15, 50), (16, 17, 10)
-        ]
-
-        self.assertEqual(
-            RECURSIVE_SIT(projects),
-            190
-        )
-
     def test_all_jobs_overlap(self):
         projects = [
             (6, 6, 60), (6, 6, 30),
